@@ -26,20 +26,32 @@
                 <ul class="list-group">
                     <li class="list-group-item">Challenges: </li>
                 </ul>
-                <a href="{{ url_for('create') }}" class="btn btn-blue btn-block mt-3" role="button">Create Challenge<a></a>
+                <a href="{{ url_for('create') }}" class="btn btn-blue btn-block btn-shadow mt-3" role="button">Create Challenge<a></a>
             </div>
+            {% if levels %}
                 <div class="col-md-3">
                 <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-shortest-list" data-toggle="list" href="#list-shortest" role="tab" aria-controls="shortest">Shortest Path</a>
-                        <a class="list-group-item list-group-item-action" id="list-binary-list" data-toggle="list" href="#list-binary" role="tab" aria-controls="binary">Binary Search</a>
+                        {% for level in levels %}
+                            {% if loop.index == 1 %}
+                                <a class="list-group-item list-group-item-action active" id="list-{{level.id}}-list" data-toggle="list" href="#list-{{level.id}}" role="tab" aria-controls="{{level.id}}">{{level.title}}</a>
+                            {% else %}
+                                <a class="list-group-item list-group-item-action" id="list-{{level.id}}-list" data-toggle="list" href="#list-{{level.id}}" role="tab" aria-controls="binary">{{level.title}}</a>
+                            {% endif %}
+                        {% endfor %}
                 </div>
                 </div>
                 <div class="col-md-7 description">
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="list-shortest" role="tabpanel" aria-labelledby="list-shortest-list">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras erat nunc, semper in vehicula in, tempor vitae leo. Etiam eget tellus dapibus, ultricies diam a, consequat ligula. Donec ultricies, mauris ac euismod mattis, neque nisi porttitor ante, vel mollis dolor metus eu lectus. Ut nibh diam, finibus in ultrices sit amet, tempor ac lacus.</div>
-                        <div class="tab-pane fade" id="list-binary" role="tabpanel" aria-labelledby="list-binary-list">Suspendisse iaculis turpis interdum sollicitudin mollis. Vivamus eu feugiat nibh. Cras congue sed arcu ac hendrerit. Curabitur pharetra odio et erat congue, ut cursus dolor vulputate. Donec in dignissim neque. Ut auctor, justo tincidunt egestas suscipit, nisi nisl mattis quam, id volutpat nunc lorem ac velit.</div>
+                        {% for level in levels %}
+                            {% if loop.index == 1 %}
+                                <div class="tab-pane fade show active" id="list-{{level.id}}" role="tabpanel" aria-labelledby="list-{{level.id}}-list">{{level.description}}</div>
+                            {% else %}
+                                <div class="tab-pane fade" id="list-{{level.id}}" role="tabpanel" aria-labelledby="list-{{level.id}}-list">{{level.description}}</div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
+            {% endif %}
         </div>
     </div>
 

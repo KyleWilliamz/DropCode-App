@@ -28,7 +28,7 @@
     margin: 0px !important;
 }
 
-#submitModal{
+#cancelModal{
     color: black;
 }
 
@@ -56,37 +56,93 @@
     background-color: #ffffff;
     width:100%;
     height: 150px;
+    border-style: solid;
+    border-color: #7C98B3;
 }
 
 .consoleTitle{
     color: #ffffff;
     background-color: #7C98B3;
     padding-left: 2%;
-    border-style: solid;
+    
 }
 
 .container-fluid{
-    width: 90%;
+    width: 100%;
 }
   </style>
   <div class="container-fluid">
     <div class="row firstRow">
        <!-- Title, description and output input fields -->
       <div class="col-md-4 description">
-        <form>
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-              <label for="titleInput">Title:</label>
-              <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                    {{form.title(class="form-control form-control is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control form-control") }}
+                {% endif %}
             </div>
             <div class="form-group">
-              <label for="description">Description</label>
-              <textarea class="form-control" id="description" placeholder="Enter problem desciption here" rows="20"></textarea>
+                {{ form.description.label(class="form-control-label") }}
+                {% if form.description.errors %}
+                    {{form.description(rows="17", class="form-control is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.description(rows="17", class="form-control") }}
+                {% endif %}
             </div>
             <div class="form-group">
-              <label for="outputInput">Expected Output:</label>
-              <input type="text" class="form-control" id="outputInput" placeholder="Ex. {34, 13, 34}">
+                {{ form.output.label(class="form-control-label") }}
+                {% if form.output.errors %}
+                    {{form.output(class="form-control form-control is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.output.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.output(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-success btn-lg") }}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger btn-lg float-right" data-toggle="modal" data-target="#cancelModal">
+                    Cancel
+                  </button>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="cancelModalLabel">Are you sure?</h5>
+                        </div>
+                        <div class="modal-body">
+                          All changes will be not be saved. Press <b>Continue</b> to stay on the page. Press <b>Discard</b> to discard all changes and return to account information.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue</button>
+                          <a href="{{url_for('account')}}"role="button" class="btn btn-danger">Discard</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </form>
+
       </div>
       <!-- End title, description and output input fields -->
 
@@ -102,33 +158,7 @@
     
     
     <div class="row">
-      <!-- Submit and cancel buttons -->
-      <div class="col-md-4 description">
-          <a href="../account/account.html" class="btn btn-danger btn-lg float-right" role="button">Cancel</a>
-
-          <!-- Submit Button trigger modal -->
-          <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#submitModal" data-backdrop="static" data-keyboard="false">Submit</button>
-            
-            <!-- Modal -->
-            <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Thank You!</h5>
-                  </div>
-                  <div class="modal-body">
-                    Your level has been successfully created!
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="redirectAccount">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-      </div>
-      <!-- End submit and cancel buttons -->
-
+      <div class="col-md-4 description"></div>
       <!-- Console -->
       <div class="col-md-8 console nopadding">
         <div class="consoleTitle">Console</div>

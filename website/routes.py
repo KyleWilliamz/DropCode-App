@@ -1,15 +1,15 @@
 from website import application, db
 from flask import render_template, redirect, request, flash, url_for
-from website.forms import LoginForm, RegistrationForm
+from website.forms import LoginForm, RegistrationForm, ChallengeForm
 from flask_login import current_user, login_user, login_required, logout_user
-from website.models import User
+from website.models import User, Levels
 from werkzeug.urls import url_parse
 from instance import config
-import datetime, requests
 
 
 @application.route('/')
 @application.route('/home')
+@login_required
 def home():
     user = User.query.filter_by(username=current_user.username).first()
     return render_template('index.html', title="Welcome!", user=user)
@@ -54,9 +54,16 @@ def logout():
 @login_required
 def account():
     info = User.query.filter_by(username=current_user.username).first()
-    return render_template('account.html', title="Account", user=info)
+    return render_template('account.html', title="Account", user=info, levels=info.levels)
 
-@application.route('/create')
+@application.route('/create',  methods=['GET', 'POST'])
 @login_required
 def create():
-    return render_template('create.html', title='Create Level')
+    form = ChallengeForm()
+    if form.validate_on_submit():
+        level = Levels(title=form.title.data, description=form.description.data, output=form.output.data, user_id=current_user.id)
+        db.session.add(level)
+        db.session.commit()
+        flash ('Congratulations, you have created a new level!', 'success')
+        return redirect(url_for('account'))
+    return render_template('create.html', title='Create Level', form=form)
