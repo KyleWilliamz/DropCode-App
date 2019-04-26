@@ -1,0 +1,201 @@
+{% extends "template.html" %}
+{% block content %}
+<style>
+    body {
+    overflow: hidden;
+}
+#editor {
+    position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+}
+
+.bg-blue{
+    background-color: #7C98B3;
+    color: #ffffff;
+}
+
+.firstRow{
+    border-width: 2px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.nopadding{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#cancelModal, #submitModal{
+    color: black;
+}
+
+.editor{
+    height: 700px;
+    width: 100%;
+}
+
+.description{
+    color: #ffffff;
+    background-color: #7C98B3;
+}
+
+.btn-dropcode{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: #7C98B3;
+    background-color: #ffffff;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10%;
+    width: 35%;
+}
+
+.console{
+    background-color: #ffffff;
+    width:100%;
+    height: 150px;
+    border-style: solid;
+    border-color: #7C98B3;
+}
+
+.consoleTitle{
+    color: #ffffff;
+    background-color: #7C98B3;
+    padding-left: 2%;
+    
+}
+
+.container-fluid{
+    width: 100%;
+}
+
+#title{
+    height: 100px;
+}
+#description{
+    height:400px;
+}
+#timer{
+    height:210px;
+    font-size: 100px;
+    margin-left: 27%;
+}
+
+  </style>
+<div class="container-fluid">
+    <div class="row firstRow">
+       <!-- Title, description and output input fields -->
+      <div class="col-md-4 description">
+            <div id=timer></div>
+            <div id="title">
+              <b>Title:</b> {{level.title}}
+            </div>
+            <div id="description">
+              <b>Description:</b><br>{{level.description}}
+              <div class="mt-5"id=output><b>Expected Output:</b> {{level.output}}</div>
+              <div class="row mt-5">
+                  <div class="col-md-4"><button type="button" class="btn btn-secondary btn-block btn-lg" onclick="printConsole()">Run</button></div>
+                  <div class="col-md-4"><button type="button" class="btn btn-success btn-block btn-lg" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#submitModal">Submit</button></div>
+                  <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="cancelModalLabel">Rank Up!</h5>
+                            </div>
+                            <div class="modal-body">
+                              Congratulation you have beaten your opponent! Press <b>Rank Up</b> to recieve reward.
+                            </div>
+                            <div class="modal-footer">
+                              <a href="{{url_for('update')}}"role="button" class="btn btn-success">Rank Up</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <div class="col-md-4"><button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#cancelModal">Quit</button></div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="cancelModalLabel">Are you sure?</h5>
+                            </div>
+                            <div class="modal-body">
+                              You are forfeiting the match. Press <b>Continue</b> to stay on the page. Press <b>Quit</b> to forfeit the match.
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue</button>
+                              <a href="{{url_for('home')}}"role="button" class="btn btn-danger">Quit</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+              </div>
+              
+            </div>
+      </div>
+      <!-- End title, description and output input fields -->
+
+      <!-- Code editor -->
+      <div class="col-md-8">
+        <div class="editor" id="editor">def dropcode:
+  #This is an actual editor but your code will not be validated  
+  code = "code would go here"
+        </div>
+      </div>
+    </div>
+    <!-- End code editor -->
+    
+    
+    <div class="row">
+      <!-- Submit and cancel buttons -->
+      <div class="col-md-4 description">
+
+
+      </div>
+      <!-- End submit and cancel buttons -->
+
+      <!-- Console -->
+      <div class="col-md-8 console nopadding">
+        <div class="consoleTitle">Console</div>
+        <div id="console"></div>
+      </div>
+      <!-- End Console -->
+    </div>
+
+  </div>   
+  <script src="{{url_for('static', filename='js/ace.js')}}" type="text/javascript" charset="utf-8"></script>
+  <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/twilight");
+      editor.session.setMode("ace/mode/python");
+  </script>
+  <script>
+    function printConsole(){
+    document.getElementById("console").innerHTML = " Output would be printed here";
+    }
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var thirtyMinutes = 60 * 30,
+        display = document.querySelector('#timer');
+    startTimer(thirtyMinutes, display);
+};
+  </script>
+  {% endblock %}

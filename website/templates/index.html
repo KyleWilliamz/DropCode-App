@@ -15,7 +15,7 @@
     <div class="mainColDiv">
         <div class="row">
             <div class="col-md-4">
-                <a href="#" class="btn btn-blue mt-4" role="button"  style="width: 90%;">Single Player</a>
+                <a href="{{url_for('single')}}" class="btn btn-blue mt-4" role="button"  style="width: 90%;">Single Player</a>
             </div>
             <div class="col-md-8">
                 <p> In single player mode you are only allowed to complete challenges that are your current rank of or lower. 
@@ -29,7 +29,7 @@
     <div class="mainColDiv">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-blue mt-5" role="button" style="width: 90%;">Multiplayer</a>
+                    <a href="{{url_for('multi')}}" class="btn btn-blue mt-5" role="button" style="width: 90%;">Multiplayer</a>
                 </div>
                 <div class="col-md-8">
                     <p> In multiplayer mode you will be paired with another player with the same rank of. The same challenge will 

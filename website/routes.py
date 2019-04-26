@@ -12,7 +12,7 @@ from instance import config
 @login_required
 def home():
     user = User.query.filter_by(username=current_user.username).first()
-    return render_template('index.html', title="Welcome!", user=user)
+    return render_template('index.html', title="Play", user=user)
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():
@@ -67,3 +67,23 @@ def create():
         flash ('Congratulations, you have created a new level!', 'success')
         return redirect(url_for('account'))
     return render_template('create.html', title='Create Level', form=form)
+
+@application.route('/multi')
+@login_required
+def multi():
+    level = Levels.query.filter_by(id=1).first()
+    return render_template('multi.html', title="Multiplayer", level=level)
+
+@application.route('/single')
+@login_required
+def single():
+    level = Levels.query.filter_by(id=1).first()
+    return render_template('single.html', title="Single Player", level=level)
+
+@application.route('/update')
+def update():
+    user = User.query.filter_by(username=current_user.username).first()
+    user.rank = user.rank+1
+    db.session.commit()
+    flash ('You are now Rank '+ str(user.rank)+'!', 'success')
+    return redirect(url_for('home'))
