@@ -1,0 +1,46 @@
+{% extends "template.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-4">
+            <h1>Account Information</h1>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-2">
+                <ul class="list-group">
+                    <li class="list-group-item">Rank: </li>
+                    <li class="list-group-item">Username: </li>
+                    <li class="list-group-item">Email: </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <ul class="list-group">
+                    <li class="list-group-item">{{ user.rank }}</li>
+                    <li class="list-group-item">{{ user.username }} </li>
+                    <li class="list-group-item">{{ user.email }} </li>
+                </ul>
+            </div>
+            
+    </div>
+        <div class="row mt-4">
+            <div class="col-md-2">
+                <ul class="list-group">
+                    <li class="list-group-item">Challenges: </li>
+                </ul>
+                <a href="{{ url_for('create') }}" class="btn btn-blue btn-block mt-3" role="button">Create Challenge<a></a>
+            </div>
+                <div class="col-md-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-shortest-list" data-toggle="list" href="#list-shortest" role="tab" aria-controls="shortest">Shortest Path</a>
+                        <a class="list-group-item list-group-item-action" id="list-binary-list" data-toggle="list" href="#list-binary" role="tab" aria-controls="binary">Binary Search</a>
+                </div>
+                </div>
+                <div class="col-md-7 description">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-shortest" role="tabpanel" aria-labelledby="list-shortest-list">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras erat nunc, semper in vehicula in, tempor vitae leo. Etiam eget tellus dapibus, ultricies diam a, consequat ligula. Donec ultricies, mauris ac euismod mattis, neque nisi porttitor ante, vel mollis dolor metus eu lectus. Ut nibh diam, finibus in ultrices sit amet, tempor ac lacus.</div>
+                        <div class="tab-pane fade" id="list-binary" role="tabpanel" aria-labelledby="list-binary-list">Suspendisse iaculis turpis interdum sollicitudin mollis. Vivamus eu feugiat nibh. Cras congue sed arcu ac hendrerit. Curabitur pharetra odio et erat congue, ut cursus dolor vulputate. Donec in dignissim neque. Ut auctor, justo tincidunt egestas suscipit, nisi nisl mattis quam, id volutpat nunc lorem ac velit.</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    {% endblock %}

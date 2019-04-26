@@ -1,0 +1,28 @@
+#headDiv,#headDiv2, #footDiv {
+  background-color : #DDD;
+  border: 1px ridge navy;
+  border-radius : 22px;
+  clear : both;
+  margin : 1% 4% auto;
+  padding : 1%;
+  width : 90%;
+}
+.mainColDiv {
+  background-color : #FFF;
+  border : 1px ridge navy;
+  border-radius : 22px;
+  float : left;
+  margin : 1% 1% 1% 4%;
+  padding : 1%;
+  width : 40%;
+}
+html {
+  background-color: #f7e5bb;
+}
+b{
+  font-weight: bold;
+  color: blue;
+}
+h1,h3{
+  color:blue;
+}

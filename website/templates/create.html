@@ -1,0 +1,147 @@
+{% extends "template.html" %}
+{% block content %}
+  <style>
+    body {
+    overflow: hidden;
+}
+#editor {
+    position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+}
+
+.bg-blue{
+    background-color: #7C98B3;
+    color: #ffffff;
+}
+
+.firstRow{
+    border-width: 2px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.nopadding{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#submitModal{
+    color: black;
+}
+
+.editor{
+    height: 700px;
+    width: 100%;
+}
+
+.description{
+    color: #ffffff;
+    background-color: #7C98B3;
+}
+
+.btn-dropcode{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: #7C98B3;
+    background-color: #ffffff;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10%;
+    width: 35%;
+}
+
+.console{
+    background-color: #ffffff;
+    width:100%;
+    height: 150px;
+}
+
+.consoleTitle{
+    color: #ffffff;
+    background-color: #7C98B3;
+    padding-left: 2%;
+    border-style: solid;
+}
+
+.container-fluid{
+    width: 90%;
+}
+  </style>
+  <div class="container-fluid">
+    <div class="row firstRow">
+       <!-- Title, description and output input fields -->
+      <div class="col-md-4 description">
+        <form>
+            <div class="form-group">
+              <label for="titleInput">Title:</label>
+              <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" placeholder="Enter problem desciption here" rows="20"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="outputInput">Expected Output:</label>
+              <input type="text" class="form-control" id="outputInput" placeholder="Ex. {34, 13, 34}">
+            </div>
+        </form>
+      </div>
+      <!-- End title, description and output input fields -->
+
+      <!-- Code editor -->
+      <div class="col-md-8">
+        <div class="editor" id="editor">def dropcode:
+  #This is an actual editor but your code will not be validated  
+  code = "code would go here"
+        </div>
+      </div>
+    </div>
+    <!-- End code editor -->
+    
+    
+    <div class="row">
+      <!-- Submit and cancel buttons -->
+      <div class="col-md-4 description">
+          <a href="../account/account.html" class="btn btn-danger btn-lg float-right" role="button">Cancel</a>
+
+          <!-- Submit Button trigger modal -->
+          <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#submitModal" data-backdrop="static" data-keyboard="false">Submit</button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Thank You!</h5>
+                  </div>
+                  <div class="modal-body">
+                    Your level has been successfully created!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="redirectAccount">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      </div>
+      <!-- End submit and cancel buttons -->
+
+      <!-- Console -->
+      <div class="col-md-8 console nopadding">
+        <div class="consoleTitle">Console</div>
+      </div>
+      <!-- End Console -->
+    </div>
+
+  </div>    
+  <script src="{{url_for('static', filename='js/ace.js')}}" type="text/javascript" charset="utf-8"></script>
+  <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/twilight");
+      editor.session.setMode("ace/mode/python");
+  </script>
+
+{% endblock %}

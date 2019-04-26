@@ -1,0 +1,68 @@
+body {
+    overflow: hidden;
+    background-color: #7C98B3;
+}
+#editor {
+    position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+}
+
+.bg-blue{
+    background-color: #7C98B3;
+    color: #ffffff;
+}
+
+.firstRow{
+    border-width: 2px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.nopadding{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#submitModal{
+    color: black;
+}
+
+.editor{
+    height: 700px;
+    width: 100%;
+}
+
+.description{
+    color: #ffffff;
+    background-color: #7C98B3;
+}
+
+.btn-dropcode{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: #7C98B3;
+    background-color: #ffffff;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10%;
+    width: 35%;
+}
+
+.console{
+    background-color: #ffffff;
+    width:100%;
+    height: 150px;
+}
+
+.consoleTitle{
+    color: #ffffff;
+    background-color: #7C98B3;
+    padding-left: 2%;
+    border-style: solid;
+}
+
+.container-fluid{
+    width: 90%;
+}
